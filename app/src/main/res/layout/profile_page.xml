@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/profile_user"
+        android:background="#ffffff">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/profile_user_pic"
+        android:src="@drawable/blank_profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/padding"
+        />
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/profile_user_name"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:text="@string/user_name_txt"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_below="@+id/profile_user_pic"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_user_name"
+            android:id="@+id/profile_real_name"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="@string/real_name"
+            android:textSize="24sp"
+            android:paddingTop="@dimen/padding"
+            />
+        <TextView
+            android:id="@+id/profile_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_real_name"
+            android:text="@string/profile_bio"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/padding"
+            android:textSize="@dimen/header_txt_size"
+            />
+
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/profile_btm_btns"
+          android:layout_alignParentBottom="true"
+          android:padding="@dimen/padding"
+          >
+         <Button
+             android:layout_width="100dp"
+             android:layout_height="100dp"
+            android:background="@drawable/round_btn"
+             android:text="@string/posts"
+
+             android:id="@+id/profile_post_btn"
+             android:layout_alignParentLeft="true"
+
+
+             />
+
+          <Button
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:id="@+id/profile_followers_btn"
+              android:background="@drawable/round_btn"
+              android:text="@string/follower"
+
+              android:layout_alignParentRight="true"
+              />
+
+          <Button
+              android:layout_width="100dp"
+              android:layout_height="100dp"
+              android:background="@drawable/round_btn"
+              android:id="@+id/profile_following_btn"
+              android:text="@string/following"
+
+              android:layout_centerInParent="true"
+              />
+      </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/profile_back_Button"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            app:srcCompat="@drawable/back_arrow"
+            android:background="@android:color/transparent"/>
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

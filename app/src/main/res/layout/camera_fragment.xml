@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:weightSum="12"
+    android:background="@android:color/transparent"
+    >
+
+
+    <TextView
+        android:id="@+id/camera_frag_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/camera_frag_header"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:clickable="true"
+        />
+
+    <TextView
+        android:id="@+id/camera_frag_cam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Camera"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:background="@drawable/round_btn"
+        android:layout_margin="@dimen/padding"
+        />
+
+    <TextView
+        android:id="@+id/camera_frag_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Gallery"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:background="@drawable/round_btn"
+        android:layout_margin="@dimen/padding"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/camera_frag_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textColor="@color/black"
+        android:background="@drawable/round_btn"
+        android:layout_margin="@dimen/padding"
+        android:clickable="true"/>
+</LinearLayout>

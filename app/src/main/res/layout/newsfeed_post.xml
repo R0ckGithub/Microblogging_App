@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/news_feed_post"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/padding"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/post_ui"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        android:orientation="horizontal"
+        >
+
+   <!--     <ImageButton
+            android:id="@+id/userpic"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:foreground="@drawable/circular_frame"
+            android:scaleType="centerCrop"
+
+            android:src="@drawable/ic_launcher_background" />
+            -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/btn_width"
+        android:layout_height="@dimen/btn_height"
+        android:id="@+id/userpic"
+        android:src="@drawable/ic_launcher_background"
+
+        />
+        <Button
+            android:id="@+id/username_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_toRightOf="@id/userpic"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:text="@string/user_name_txt"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/post_image"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/padding"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nobita"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:id="@+id/utitlites"
+        >
+
+        <ImageButton
+            android:id="@+id/redlike_btn"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:background="#ffffff"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/red_heart" />
+
+        <ImageButton
+            android:id="@+id/whitelike_btn"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:background="#ffffff"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/heart" />
+        <ImageButton
+            android:id="@+id/comment_btn"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:layout_toRightOf="@id/redlike_btn"
+            app:srcCompat="@android:drawable/sym_action_chat"
+            android:background="#ffffff"
+            android:scaleType="fitXY"
+            android:layout_marginRight="@dimen/padding"
+            />
+        <ImageButton
+            android:id="@+id/share_btn"
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+            android:layout_toRightOf="@id/comment_btn"
+            android:scaleType="fitXY"
+            android:background="#ffffff"
+            android:visibility="invisible"
+            app:srcCompat="@android:drawable/ic_menu_send" />
+
+        <ImageButton
+            android:id="@+id/bookmark_btn"
+            android:layout_width="@dimen/btn_height"
+            android:layout_height="@dimen/btn_width"
+            android:scaleType="fitXY"
+            android:background="#ffffff"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/padding"
+            android:visibility="invisible"
+            app:srcCompat="@android:drawable/btn_star_big_on"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/likes_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:textSize="@dimen/like_txt_size"
+        android:layout_marginTop="@dimen/bottom_padding_newsfeed"
+        android:textStyle="bold|italic"
+        android:text="10000 likes"
+        />
+    
+    <TextView
+        android:id="@+id/caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description_txt"
+        android:textSize="@dimen/description_txt_size"
+        android:layout_marginTop="@dimen/bottom_padding_newsfeed"
+        android:elegantTextHeight="true"/>
+
+    <TextView
+        android:id="@+id/comment_fragment_btn"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/link_blue"
+        android:layout_marginTop="@dimen/bottom_padding_newsfeed"
+        android:background="@android:color/transparent"
+        android:text="View all 100 comments" />
+
+    <TextView
+        android:id="@+id/time_stamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="@dimen/bottom_padding_newsfeed"
+        android:gravity="center_vertical"
+        android:text="@string/time_txt"
+        android:background="@android:color/transparent"
+        />
+
+
+</LinearLayout>

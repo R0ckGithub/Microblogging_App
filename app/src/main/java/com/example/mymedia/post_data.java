@@ -9,8 +9,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class  post_data {
+    static FirebaseFirestore db=FirebaseFirestore.getInstance();
     String description;
     String user_name;
     Timestamp time_stamp;
@@ -22,12 +25,13 @@ public class  post_data {
     Boolean post_liked;
 
 
+
     //utility functions
 
-    public void setUser_pic_url()
+    public void set_User_pic_url(final mrecylceviewAdapter Adapter, final int position)
     {
         final String TAG = "User_pic_setter";
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         db
                 .collection("users")
                 .document(user_name)
@@ -49,8 +53,51 @@ public class  post_data {
                         } else {
                             Log.d(TAG, "get failed with ", task.getException());
                         }
+                        Adapter.notifyItemChanged(position);
                     }
                 });
+
+
+    }
+
+
+    public void getPost_like_state(final mrecylceviewAdapter Adapter, final int position)
+    {
+        final String TAG="POST_like_state_fun";
+        db
+                .collection("post")
+                .document(post_id)
+                .collection("likes")
+                .whereEqualTo("user_name",MainActivity.user1.authuser)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful())
+                        {
+                            QuerySnapshot doc = task.getResult();
+                            if(doc.isEmpty())
+                            {
+                                Log.d(TAG, "onComplete: doc empty");
+                                post_liked=false;
+                            }
+                            else
+                            {
+                                Log.d(TAG, "onComplete: doc not empty"+doc.getDocuments());
+                                post_liked=true;
+                            }
+                            Adapter.notifyItemChanged(position);
+                        }
+                        else
+                        {
+                            Log.d(TAG, "onComplete: Unsuccesful task");
+                        }
+
+                    }
+                });
+
+
+
 
     }
 

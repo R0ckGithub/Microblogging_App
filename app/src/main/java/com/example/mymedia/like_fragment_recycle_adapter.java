@@ -21,9 +21,12 @@ public class like_fragment_recycle_adapter extends RecyclerView.Adapter<like_fra
     private static final String TAG ="like_recycle_adapter" ;
     ArrayList<likes_fragment_data> data= new ArrayList<>();
     private Context mcontext;
-    like_fragment_recycle_adapter(ArrayList<likes_fragment_data> data,Context context){
+    OnNoteListner_like monNoteListner_like;
+
+    like_fragment_recycle_adapter(ArrayList<likes_fragment_data> data,Context context,OnNoteListner_like onNoteListner_like){
         this.data=data;
         mcontext=context;
+        monNoteListner_like = onNoteListner_like;
         //this.layout=layout;
     }
 
@@ -33,7 +36,7 @@ public class like_fragment_recycle_adapter extends RecyclerView.Adapter<like_fra
     public fragment_recycle_viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater .from (parent.getContext());
         View view = inflater.inflate(R.layout.like_fragment_recyclerview_layout,parent,false);
-        return new fragment_recycle_viewholder(view);
+        return new fragment_recycle_viewholder(view,monNoteListner_like);
     }
 
     @Override
@@ -41,13 +44,29 @@ public class like_fragment_recycle_adapter extends RecyclerView.Adapter<like_fra
         Log.d(TAG, "onBindViewHolder: inside BindViewHolder");
         holder.user_name.setText(data.get(position).getUser_name());
         holder.name.setText(data.get(position).getReal_name());
-        /*if(data.get(position).follow)holder.follow.setText("Unfollow");
-        else */holder.follow.setText("Follow");
+        if(data.get(position).follow!=null)
+        {
+            Log.d(TAG, "onBind follow state: intialised laal dil");
+            if (data.get(position).follow) holder.follow.setText("Unfollow");
+            else holder.follow.setText("Follow");
+        }
+        else
+        {
+            Log.d(TAG, "onBindViewHolder follow stae: Not intialised yet kala dil");
+        }
+
+       // Not working
+        //Todo: Disable follow button for urself
+        if(data.get(position).user_name == MainActivity.user1.authuser)
+        {
+            Log.d(TAG, "onBindViewHolder: "+data.get(position).user_name);
+            holder.follow.setVisibility(View.INVISIBLE);
+        }
 
         initImageLoader();
         UniversalImageLoader.setImage(data.get(position).getUser_pic_url(),holder.user_pic,null,"");
 
-        Log.d(TAG, "onBindViewHolder: "+holder.user_name.getText());
+        Log.d(TAG, "onBindViewHolder: "+data.get(position).user_pic_url);
     }
 
     @Override
@@ -55,20 +74,28 @@ public class like_fragment_recycle_adapter extends RecyclerView.Adapter<like_fra
         return data.size();
     }
 
-    public class fragment_recycle_viewholder extends RecyclerView.ViewHolder{
+    public class fragment_recycle_viewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView user_name;
         TextView name;
         ImageView user_pic;
         Button follow;
-
-        fragment_recycle_viewholder(View itemView){
+        OnNoteListner_like onNoteListner_like;
+        fragment_recycle_viewholder(View itemView, OnNoteListner_like monNoteListner_like){
             super(itemView);
             user_name=(TextView) itemView.findViewById(R.id.user_name_like_fragment);
             name=(TextView)itemView.findViewById(R.id.name_like_fragment);
             user_pic=(ImageView)itemView.findViewById(R.id.userpic_like_fragment);
             follow=(Button)itemView.findViewById(R.id.follow_btn_like_fragment);
+            onNoteListner_like = monNoteListner_like;
 
+            user_name.setOnClickListener(this);
+            follow.setOnClickListener(this);
 
+        }
+
+        @Override
+        public void onClick(View view) {
+            onNoteListner_like.OnNoteClick_like(getAdapterPosition(),view.getId());
         }
     }
 
@@ -77,5 +104,10 @@ public class like_fragment_recycle_adapter extends RecyclerView.Adapter<like_fra
           UniversalImageLoader universalImageLoader = new UniversalImageLoader(mcontext);
           ImageLoader.getInstance().init(universalImageLoader.getConfig());
       }
+
+      public  interface  OnNoteListner_like
+    {
+        void OnNoteClick_like(int position,int id);
+    }
 
 }

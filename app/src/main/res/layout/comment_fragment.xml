@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_height"
+        android:weightSum="10"
+        android:id="@+id/comment_header"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/padding"
+        android:background="#ffffff"
+        >
+        <ImageButton
+            android:layout_width="@dimen/btn_height"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/back_arrow"
+            android:id="@+id/back_btn_comment_layout"
+            android:background="@android:color/transparent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:text="Comments"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:clickable="true"/>
+        <ImageButton
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="match_parent"
+            app:srcCompat="@android:drawable/ic_menu_send"
+            android:background="@android:color/transparent"
+            android:id="@+id/share_comment_layout"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:id="@+id/comment_area"
+        android:orientation="horizontal"
+        android:layout_below="@id/comment_header"
+        android:padding="@dimen/padding"
+        android:background="@color/background"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/btn_width"
+            android:layout_height="@dimen/btn_height"
+
+            android:src="@drawable/ic_launcher_background"
+            android:layout_marginRight="@dimen/padding"
+            android:id="@+id/user_pic_comment_layout"/>
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:id="@+id/comment_area_txt"
+            android:background="@drawable/round_corner"
+            android:padding="8dp"
+            >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:hint="@string/cmnt_hint"
+           android:gravity="center_vertical"
+            android:id="@+id/comment_space"
+            android:layout_toLeftOf="@+id/comment_area_post_btn"
+            android:textColor="@color/black"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="@dimen/padding"
+            android:layout_marginLeft="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Post"
+                android:textSize="@dimen/header_txt_size"
+                android:clickable="true"
+                android:textColor="@color/link_blue"
+                android:gravity="center_vertical"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/comment_area_post_btn"
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/comment_area"
+        android:id="@+id/comment_fragment_recycler_view"
+        android:background="@color/background"/>
+
+</RelativeLayout>

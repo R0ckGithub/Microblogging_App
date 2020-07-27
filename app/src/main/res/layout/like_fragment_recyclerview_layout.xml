@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/small_margin"
+    android:id="@+id/like_fragment_recycler_layout_1"
+    android:background="@android:color/white"
+    android:paddingLeft="@dimen/small_margin"
+    android:paddingRight="@dimen/small_margin">
+  <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/userpic_like_fragment"
+        android:layout_width="@dimen/user_pic_width"
+
+        android:layout_height="@dimen/user_pic_height"
+      android:layout_centerVertical="true"
+
+      android:src="@drawable/ic_launcher_background"
+
+
+      />
+
+
+
+  <!--  <ImageButton
+        android:id="@+id/userpic_like_fragment"
+        android:layout_width="@dimen/user_pic_width"
+        android:layout_height="@dimen/user_pic_height"
+        android:scaleType="centerCrop"
+        android:layout_weight="1"
+        tools:srcCompat="@tools:sample/avatars" />
+        -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_height"
+        android:layout_toRightOf="@id/userpic_like_fragment"
+        android:id="@+id/like_fragment_recycler_text"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding"
+        android:layout_toLeftOf="@+id/follow_btn_like_fragment"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_name_txt"
+        android:layout_toRightOf="@+id/userpic_like_fragment"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:textSize="@dimen/header_txt_size"
+        android:background="@android:color/transparent"
+        android:id="@+id/user_name_like_fragment"
+        android:textColor="@color/black"/>
+
+       <TextView
+           android:id="@+id/name_like_fragment"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="@dimen/description_txt_size"
+           android:textColor="@android:color/transparent"
+           android:layout_below="@id/user_name_like_fragment"
+           android:layout_toRightOf="@id/userpic_like_fragment"
+           android:background="@android:color/transparent"
+
+           android:text="@string/name_txt" />
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btn_height"
+        android:layout_alignParentEnd="true"
+
+        android:id="@+id/follow_btn_like_fragment"
+        android:text="Follow"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_background"
+        android:layout_centerVertical="true"/>
+
+
+
+
+
+</RelativeLayout>

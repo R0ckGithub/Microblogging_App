@@ -1,0 +1,19 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="post_height">420dp</dimen>
+    <dimen name="post_width">420dp</dimen>
+    <dimen name="btn_height">48dp</dimen>
+    <dimen name="btn_width">32dp</dimen>
+    <dimen name="like_txt_size">14sp</dimen>
+    <dimen name="description_txt_size">16sp</dimen>
+    <dimen name="header_txt_size">18sp</dimen>
+    <dimen name="user_pic_height">64dp</dimen>
+    <dimen name="one_fourth_of_user_pic_height">15dp</dimen>
+    <dimen name="user_pic_width">48dp</dimen>
+    <dimen name="padding">6dp</dimen>
+    <dimen name="bottom_padding_newsfeed">4dp</dimen>
+    <dimen name="small_margin">3dp</dimen>
+
+</resources>
