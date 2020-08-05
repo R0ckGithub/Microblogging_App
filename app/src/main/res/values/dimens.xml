@@ -15,5 +15,8 @@
     <dimen name="padding">6dp</dimen>
     <dimen name="bottom_padding_newsfeed">4dp</dimen>
     <dimen name="small_margin">3dp</dimen>
+    <dimen name="txt_box_width">320dp</dimen>
+    <dimen name="txt_box_height">32dp</dimen>
+    <dimen name="txt_box_bio_height">160dp</dimen>
 
 </resources>

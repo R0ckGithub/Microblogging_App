@@ -16,15 +16,15 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class UniversalImageLoader {
-    private static final int defaultImage=R.drawable.blank_profile;
+    private static final int defaultImage = R.drawable.blank_profile;
     private Context mcontext;
 
-    public UniversalImageLoader(Context context)
-    {
-        mcontext=context;
+    public UniversalImageLoader(Context context) {
+        mcontext = context;
     }
-    public ImageLoaderConfiguration getConfig(){
-        DisplayImageOptions defaultOptions = new   DisplayImageOptions.Builder()
+
+    public ImageLoaderConfiguration getConfig() {
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(defaultImage)
                 .showImageForEmptyUri(defaultImage)
                 .showImageOnFail(defaultImage)
@@ -33,38 +33,37 @@ public class UniversalImageLoader {
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .displayer(new FadeInBitmapDisplayer(300)).build();
 
-                ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(mcontext)
+        ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(mcontext)
                 .defaultDisplayImageOptions(defaultOptions)
                 .memoryCache(new WeakMemoryCache())
-                .diskCacheSize(100*1024*1024).build();
+                .diskCacheSize(100 * 1024 * 1024).build();
         return configuration;
     }
 
-    public static void setImage(String imgURL , ImageView image , final ProgressBar mprogressBar , String append)
-    {
+    public static void setImage(String imgURL, ImageView image, final ProgressBar mprogressBar, String append) {
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.displayImage(append + imgURL, image, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
-                if(mprogressBar != null)
+                if (mprogressBar != null)
                     mprogressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                if(mprogressBar != null)
+                if (mprogressBar != null)
                     mprogressBar.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                if(mprogressBar != null)
+                if (mprogressBar != null)
                     mprogressBar.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onLoadingCancelled(String imageUri, View view) {
-                if(mprogressBar != null)
+                if (mprogressBar != null)
                     mprogressBar.setVisibility(View.VISIBLE);
 
             }
@@ -76,11 +75,10 @@ public class UniversalImageLoader {
 
 /**
  * Intialisig the universal image loader
- *
+ * <p>
  * private void initImageLoader()
- *     {
- *         UniversalImageLoader universalImageLoader = new UniversalImageLoader(getActivity());
- *         ImageLoader.getInstance().init(universalImageLoader.getConfig());
- *     }
- *
- * */
+ * {
+ * UniversalImageLoader universalImageLoader = new UniversalImageLoader(getActivity());
+ * ImageLoader.getInstance().init(universalImageLoader.getConfig());
+ * }
+ */

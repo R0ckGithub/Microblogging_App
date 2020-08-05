@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profiledetails"
+    android:background="@android:color/white">
+
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_margin="@dimen/padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/insta"
+        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/txt_boxes"
+        android:layout_below="@+id/app_logo"
+        android:gravity="center"
+        android:orientation="vertical"
+
+    >
+
+
+        <EditText
+        android:layout_width="@dimen/txt_box_width"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_marginTop="@dimen/padding"
+        android:id="@+id/username_txt"
+        android:layout_marginRight="@dimen/padding"
+        android:layout_marginLeft="@dimen/padding"
+        android:padding="@dimen/padding"
+        android:background="@drawable/round_corner_frag_bg"
+        android:hint="Display Name(max 30 characters)"
+        android:layout_margin="@dimen/padding"
+        />
+    <EditText
+        android:layout_width="@dimen/txt_box_width"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/padding"
+        android:textSize="20sp"
+        android:layout_marginTop="@dimen/padding"
+        android:id="@+id/realname_txt"
+        android:layout_marginRight="@dimen/padding"
+        android:layout_marginLeft="@dimen/padding"
+        android:background="@drawable/round_corner_frag_bg"
+        android:hint="Your Name(max 30 characters)"
+        android:layout_margin="@dimen/padding"
+        />
+
+
+        <EditText
+        android:layout_width="@dimen/txt_box_width"
+        android:layout_height="@dimen/txt_box_bio_height"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/padding"
+        android:id="@+id/bio_txt"
+        android:layout_marginRight="@dimen/padding"
+        android:layout_marginLeft="@dimen/padding"
+        android:background="@drawable/round_corner_frag_bg"
+        android:hint="Bio\nIts all about you "
+        android:gravity="top"
+        android:padding="@dimen/padding"
+        android:layout_margin="@dimen/padding"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Image to Upload"
+            android:layout_margin="@dimen/padding"
+            android:textColor="@color/link_blue"
+            android:textSize="20sp"
+            android:id="@+id/user_pic_upload"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detail_btn_save"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/detail_btn_save"
+            android:background="@drawable/button_background"
+            android:layout_margin="@dimen/padding"
+            android:textSize="20sp"
+            android:padding="@dimen/padding"
+            android:textColor="@android:color/white"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

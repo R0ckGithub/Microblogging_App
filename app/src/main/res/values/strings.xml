@@ -105,4 +105,5 @@
     <string name="real_name">_______</string>
     <string name="profile_bio">this is ur bio \n visible to everyone \n so keep it clean \nand\clear</string>
     <string name="camera_frag_header">ADD PIC</string>
+    <string name="detail_btn_save">SAVE MY DETAILS</string>
 </resources>

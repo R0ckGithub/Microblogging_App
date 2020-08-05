@@ -1,8 +1,5 @@
 package com.example.mymedia;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,32 +10,31 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ServerTimestamp;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.io.File;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class upload_post extends AppCompatActivity {
 
-    ImageView upload_image ;
+    ImageView upload_image;
     EditText description;
-    Button submit_btn,cancel_btn;
+    Button submit_btn, cancel_btn;
     Uri downloadUrl;
     String description_txt;
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -58,17 +54,14 @@ public class upload_post extends AppCompatActivity {
 
         final StorageReference mstorage = FirebaseStorage.getInstance().getReference();
 
-        if(getIntent().hasExtra("user_pic_url"))
-        {
+        if (getIntent().hasExtra("user_pic_url")) {
             String user_pic_url = getIntent().getParcelableExtra("user_pic_url").toString();
-            UniversalImageLoader.setImage(user_pic_url,upload_image,
-                    null,"");
+            UniversalImageLoader.setImage(user_pic_url, upload_image,
+                    null, "");
 
 
-        }
-        else if(getIntent().hasExtra("user_pic_bitmap"))
-        {
-            upload_image.setImageBitmap((Bitmap)getIntent().getParcelableExtra("user_pic_bitmap"));
+        } else if (getIntent().hasExtra("user_pic_bitmap")) {
+            upload_image.setImageBitmap((Bitmap) getIntent().getParcelableExtra("user_pic_bitmap"));
         }
 
 
@@ -85,14 +78,14 @@ public class upload_post extends AppCompatActivity {
                 description_txt = description.getText().toString();
                 int len = description_txt.length() > 30 ? 30 : description_txt.length();
                 description_txt = description_txt.substring(0, len);
-                Log.d(TAG, "onClick: desc"+' '+description_txt);
+                Log.d(TAG, "onClick: desc" + ' ' + description_txt);
                 if (getIntent().hasExtra("user_pic_url")) {
                     Log.d(TAG, "onClick: start");
                     Uri file = (Uri) getIntent().getParcelableExtra("user_pic_url");
 
-                    UUID unique_id =UUID.fromString(Long.toString(System.currentTimeMillis()));
-                    Log.d(TAG, "onClick: uNique id"+unique_id.toString());
-                    StorageReference post_imageRef = mstorage.child("post_image/"+ unique_id.toString()+".png");
+                    UUID unique_id = UUID.randomUUID();
+                    Log.d(TAG, "onClick: uNique id" + unique_id.toString());
+                    StorageReference post_imageRef = mstorage.child("post_image/" + unique_id.toString() + ".png");
 
                     post_imageRef.putFile(file)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -100,8 +93,8 @@ public class upload_post extends AppCompatActivity {
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     // Get a URL to the uploaded content
                                     downloadUrl = taskSnapshot.getUploadSessionUri();
-                                    Log.d(TAG, "onSuccess: "+downloadUrl.toString());
-                                   post_firestore_uploader(downloadUrl.toString(),description_txt);
+                                    Log.d(TAG, "onSuccess: " + downloadUrl.toString());
+                                    post_firestore_uploader(downloadUrl.toString(), description_txt);
 
                                 }
                             })
@@ -119,20 +112,20 @@ public class upload_post extends AppCompatActivity {
         });
     }
 
-    private void initImageLoader()
-    {
+    private void initImageLoader() {
         UniversalImageLoader universalImageLoader = new UniversalImageLoader(getBaseContext());
         ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
-    void post_firestore_uploader(String downloadUrl,String description_txt) {
+    void post_firestore_uploader(String downloadUrl, String description_txt) {
         Map<String, Object> post_data = new HashMap<>();
-        post_data.put("user_name", MainActivity.user1.authuser);
+        post_data.put("user_name", welcome.user1.authuser);
         post_data.put("likes_cnt", 0);
         post_data.put("comment_cnt", 0);
         post_data.put("description", description_txt);
         post_data.put("post_image_url", downloadUrl);
         post_data.put("time_stamp", FieldValue.serverTimestamp());
+        post_data.put("uid",welcome.user1.user_uid);
 
         DocumentReference mDocref
                 = db
@@ -145,6 +138,7 @@ public class upload_post extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "onSuccess: post_uploaded_succesfully");
                         Toast.makeText(getBaseContext(), "Post_Uploaded_Successfully", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -157,79 +151,71 @@ public class upload_post extends AppCompatActivity {
         followers_fetch(mDocref.getId());
 
     }
-   //uploading post_id to every follower timeline
+    //uploading post_id to every follower timeline
 
     //fetching followers list
-    void followers_fetch(String post_name)
-    {
+    void followers_fetch(String post_name) {
         final String post_id = post_name;
         DocumentReference mDocref
-                =db
+                = db
                 .collection("AfollowsB")
-                .document(MainActivity.user1.authuser);
+                .document(welcome.user1.user_uid);
         try {
 
 
-                    mDocref
+            mDocref
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             DocumentSnapshot doc = task.getResult();
-                            if(doc!=null)
-                            {
-                                Map<String,Object> followers_data = new HashMap<>();
+                            if (doc != null) {
+                                Map<String, Object> followers_data = new HashMap<>();
                                 Log.d(TAG, "onComplete: doc reterived");
                                 followers_data = doc.getData();
-                                timeline_upload(followers_data,post_id);
+                                timeline_upload(followers_data, post_id);
 
                             }
                         }
                     });
 
-        }
-        catch (Exception e)
-        {
-            Log.d(TAG, "timeline_setup: Null value"+e);
+        } catch (Exception e) {
+            Log.d(TAG, "timeline_setup: Null value" + e);
         }
     }
 
     //uploading post_id to followers list
 
-    void timeline_upload(Map<String,Object> data , String post_id)
-    {
+    void timeline_upload(Map<String, Object> data, String post_id) {
         DocumentReference mDocref;
-        for(final Map.Entry<String,Object> entry: data.entrySet())
-        {
-           mDocref = db
-                   .collection("users")
-                   .document(entry.getKey());
-           if(mDocref!=null)
-           {
-               Map<String,Object> post_data = new HashMap<>();
-               post_data.put("post_id",post_id);
-               post_data.put("time_stamp",FieldValue.serverTimestamp());
-               mDocref
-                       .collection("timeline")
-                       .document(post_id)
-                       .set(post_data)
-                       .addOnFailureListener(new OnFailureListener() {
-                           @Override
-                           public void onFailure(@NonNull Exception e) {
-                               Log.d(TAG, "onFailure: "+e);
-                           }
-                       })
-                       .addOnSuccessListener(new OnSuccessListener<Void>() {
-                           @Override
-                           public void onSuccess(Void aVoid) {
-                               Log.d(TAG, "onSuccess: timeline_set"+entry.getKey());
-                           }
-                       });
-           }
-           else
-           {
-               Log.d(TAG, "timeline_upload: No such user ERRRROR");
-           }
+        for (final Map.Entry<String, Object> entry : data.entrySet()) {
+            mDocref = db
+                    .collection("users")
+                    .document(entry.getKey());
+            if (mDocref != null) {
+                Map<String, Object> post_data = new HashMap<>();
+                post_data.put("post_id", post_id);
+                post_data.put("time_stamp", FieldValue.serverTimestamp());
+                post_data.put("uid",welcome.user1.user_uid);
+                mDocref
+                        .collection("timeline")
+                        .document(post_id)
+                        .set(post_data)
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG, "onFailure: " + e);
+                            }
+                        })
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "onSuccess: timeline_set" + entry.getKey());
+                            }
+                        });
+            } else {
+                Log.d(TAG, "timeline_upload: No such user ERRRROR");
+            }
 
         }
     }

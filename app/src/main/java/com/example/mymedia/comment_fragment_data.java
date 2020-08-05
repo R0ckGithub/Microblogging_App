@@ -1,8 +1,6 @@
 package com.example.mymedia;
 
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -11,21 +9,27 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Nullable;
 
 import static android.content.ContentValues.TAG;
 
 public class comment_fragment_data {
-    String user_name="anonymous",comment="hidden";
-    String user_pic_url="";
+    String user_name = "anonymous", comment = "hidden";
+    String user_pic_url = "";
     Timestamp time_stamp;
-    int likes_cnt=0;
+    String uid;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    int likes_cnt = 0;
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public String getComment_id() {
@@ -36,8 +40,8 @@ public class comment_fragment_data {
         this.comment_id = comment_id;
     }
 
-    String post_id="";
-    String comment_id="";
+    String post_id = "";
+    String comment_id = "";
 
 
     public comment_fragment_data(String user_name, String comment, String user_pic_url, Timestamp time_stamp, String post_id, String comment_id, Boolean comment_liked) {
@@ -116,14 +120,13 @@ public class comment_fragment_data {
         this.comment_liked = comment_liked;
     }
 
-    public void setUser_pic_url(final comment_fragment_recycler_adapter Adapter, final int position)
-    {
-        final String TAG ="user_pic_url_comment";
-         DocumentReference mDocref
-                 =db
+    public void setUser_pic_url(final comment_fragment_recycler_adapter Adapter, final int position) {
+        final String TAG = "user_pic_url_comment";
+        DocumentReference mDocref
+                = db
                 .collection("users")
-                .document(user_name);
-        if(mDocref!=null) {
+                .document(uid);
+        if (mDocref != null) {
             mDocref
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -133,7 +136,7 @@ public class comment_fragment_data {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
                                     String url = document.get("user_pic_url").toString();
-                                    user_pic_url=url;
+                                    user_pic_url = url;
                                     Adapter.notifyItemChanged(position);
                                 } else {
                                     Log.d(TAG, "No such URL document");
@@ -144,16 +147,13 @@ public class comment_fragment_data {
                         }
 
                     });
-        }
-        else
-        {
+        } else {
             Log.d(TAG, "user_pic_url_setter: No such comment exist error");
         }
 
     }
 
-    public void like_btn_state(final comment_fragment_recycler_adapter Adapter, final int position)
-    {
+    public void like_btn_state(final comment_fragment_recycler_adapter Adapter, final int position) {
         DocumentReference mDocref = db
                 .collection("post")
                 .document(post_id);
@@ -175,12 +175,12 @@ public class comment_fragment_data {
                                 Object object = documentSnapshot.get("comment_likes");
                                 if (object != null) {
                                     HashMap<String, Object> h1 = (HashMap) object;
-                                    if (h1.containsKey(MainActivity.user1.authuser)) {
+                                    if (h1.containsKey(welcome.user1.authuser)) {
                                         Log.d(TAG, "onComplete: true");
-                                        comment_liked=true;
+                                        comment_liked = true;
                                     } else {
                                         Log.d(TAG, "onComplete: false");
-                                        comment_liked=false;
+                                        comment_liked = false;
                                     }
 
                                     Adapter.notifyItemChanged(position);

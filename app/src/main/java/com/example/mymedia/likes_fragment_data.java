@@ -1,7 +1,6 @@
 package com.example.mymedia;
 
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -10,18 +9,26 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.core.UserData;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class likes_fragment_data {
-    static FirebaseFirestore db =FirebaseFirestore.getInstance();
-    String user_name,real_name;
+    static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String user_name, real_name;
     String user_pic_url;
     Boolean follow;
-    static Map<String,Object> follower_list = new HashMap<>();
+    String uid;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    static Map<String, Object> follower_list = new HashMap<>();
 
     public likes_fragment_data() {
     }
@@ -59,12 +66,11 @@ public class likes_fragment_data {
     }
 
 
-
-    void user_pic_setter (final like_fragment_recycle_adapter adapter, final int position) {
+    void user_pic_setter(final like_fragment_recycle_adapter adapter, final int position) {
         final String TAG = "user_pic_setter_like";
         DocumentReference mDocref = db
-                        .collection("users")
-                        .document(user_name);
+                .collection("users")
+                .document(uid);
 
         if (mDocref != null) {
             mDocref
@@ -78,6 +84,7 @@ public class likes_fragment_data {
                                 if (document.exists()) {
                                     String url = document.get("user_pic_url").toString();
                                     user_pic_url = url;
+                                    user_name = document.get("user_name").toString();
                                     Log.d(TAG, "URLSnapshot data: " + user_pic_url);
                                 } else {
                                     Log.d(TAG, "No such URL document");
@@ -92,23 +99,21 @@ public class likes_fragment_data {
         }
     }
 
-    void followers_list_update()
-    {
-        final String TAG ="follow_list_like";
+    void followers_list_update() {
+        final String TAG = "follow_list_like";
 
         db
                 .collection("AfollowsB")
-                .document(MainActivity.user1.authuser)
+                .document(welcome.user1.user_uid)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
-                            DocumentSnapshot document =task.getResult();
+                            DocumentSnapshot document = task.getResult();
                             Log.d(TAG, document.getId() + " => " + document.getData());
-                            follower_list =document.getData();
-                        }
-                        else {
+                            follower_list = document.getData();
+                        } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
@@ -117,15 +122,12 @@ public class likes_fragment_data {
                 });
     }
 
-    void follower_state(like_fragment_recycle_adapter adapter,int position)
-    {
+    void follower_state(final like_fragment_recycle_adapter adapter, int position) {
         final String TAG = "follower_state_like";
 
-        if(follower_list.containsKey(user_name))
-        {
-            follow=true;
-        }
-        else follow=false;
+        if (follower_list.containsKey(uid)) {
+            follow = true;
+        } else follow = false;
 
         adapter.notifyItemChanged(position);
     }

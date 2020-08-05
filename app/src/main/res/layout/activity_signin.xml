@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profiledetails"
+    android:background="@android:color/white">
+
+
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_margin="@dimen/padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/insta"
+        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_boxes"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        >
+        <EditText
+            android:layout_width="@dimen/txt_box_width"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:hint="Email Id"
+            android:inputType="textEmailAddress"
+            android:id="@+id/sigin_email"
+            />
+        <EditText
+            android:layout_width="@dimen/txt_box_width"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:hint="Password"
+            android:textIsSelectable="false"
+            android:inputType="textPassword"
+            android:id="@+id/signin_password"
+            />
+        <EditText
+            android:layout_width="@dimen/txt_box_width"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:hint="Confirm Password"
+            android:textIsSelectable="false"
+            android:inputType="textPassword"
+            android:id="@+id/signin_confrm_password"
+            android:visibility="gone"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detail_btn_signin"
+            android:layout_gravity="center_horizontal"
+            android:text="SIGN IN"
+            android:background="@drawable/button_background"
+            android:layout_margin="@dimen/padding"
+            android:padding="@dimen/padding"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New User !! REGISTER HERE"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/padding"
+            android:textColor="@color/link_blue"
+            android:textSize="20sp"
+            android:id="@+id/register_txt_btn"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/padding"
+            android:textColor="@color/link_blue"
+            android:textSize="20sp"
+            android:id="@+id/forgot_password"
+
+            />
+
+    </LinearLayout>
+   <!-- <ProgressBar
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/signin_progressbar"
+        />
+-->
+</RelativeLayout>

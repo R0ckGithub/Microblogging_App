@@ -34,7 +34,7 @@
             android:layout_width="@dimen/btn_width"
             android:layout_height="@dimen/btn_height"
             android:layout_weight="1"
-            android:paddingLeft="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/small_margin"
             android:background="#ffffff"
 
             app:srcCompat="@android:drawable/ic_menu_camera" />
@@ -49,13 +49,14 @@
             app:srcCompat="@drawable/insta" />
 
         <ImageButton
-            android:id="@+id/msg_btn"
+            android:id="@+id/suggestion_btn"
             android:layout_width="@dimen/btn_width"
             android:layout_height="@dimen/btn_height"
             android:layout_weight="1"
             android:background="#ffffff"
-            android:paddingRight="@dimen/small_margin"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+            android:scaleType="centerCrop"
+            android:layout_marginRight="@dimen/small_margin"
+            app:srcCompat="@drawable/follow_btn" />
     </LinearLayout>
 
 

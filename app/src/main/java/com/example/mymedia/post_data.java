@@ -12,8 +12,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class  post_data {
-    static FirebaseFirestore db=FirebaseFirestore.getInstance();
+public class post_data {
+    static FirebaseFirestore db = FirebaseFirestore.getInstance();
     String description;
     String user_name;
     Timestamp time_stamp;
@@ -23,18 +23,24 @@ public class  post_data {
     int comment_cnt;
     String post_id;
     Boolean post_liked;
+    String uid;
 
+    public String getUid() {
+        return uid;
+    }
 
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+//utility functions
 
-    //utility functions
-
-    public void set_User_pic_url(final mrecylceviewAdapter Adapter, final int position)
-    {
+    public void set_User_pic_url(final mrecylceviewAdapter Adapter, final int position) {
         final String TAG = "User_pic_setter";
+        Log.d(TAG, "set_User_pic_url: "+uid);
 
         db
                 .collection("users")
-                .document(user_name)
+                .document(uid)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
@@ -43,6 +49,7 @@ public class  post_data {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
+                            Log.d(TAG, "onComplete: "+document.getData());
                             if (document.exists()) {
                                 user_pic_url = document.get("user_pic_url").toString();
 
@@ -61,42 +68,33 @@ public class  post_data {
     }
 
 
-    public void getPost_like_state(final mrecylceviewAdapter Adapter, final int position)
-    {
-        final String TAG="POST_like_state_fun";
+    public void getPost_like_state(final mrecylceviewAdapter Adapter, final int position) {
+        final String TAG = "POST_like_state_fun";
         db
                 .collection("post")
                 .document(post_id)
                 .collection("likes")
-                .whereEqualTo("user_name",MainActivity.user1.authuser)
+                .whereEqualTo("user_name", welcome.user1.authuser)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
                             QuerySnapshot doc = task.getResult();
-                            if(doc.isEmpty())
-                            {
+                            if (doc.isEmpty()) {
                                 Log.d(TAG, "onComplete: doc empty");
-                                post_liked=false;
-                            }
-                            else
-                            {
-                                Log.d(TAG, "onComplete: doc not empty"+doc.getDocuments());
-                                post_liked=true;
+                                post_liked = false;
+                            } else {
+                                Log.d(TAG, "onComplete: doc not empty" + doc.getDocuments());
+                                post_liked = true;
                             }
                             Adapter.notifyItemChanged(position);
-                        }
-                        else
-                        {
+                        } else {
                             Log.d(TAG, "onComplete: Unsuccesful task");
                         }
 
                     }
                 });
-
-
 
 
     }

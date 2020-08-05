@@ -16,17 +16,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name=".upload_post"></activity>
-        <activity android:name=".mainUI">
+        <activity android:name=".welcome"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".signin" />
+        <activity android:name=".Profiledetails" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.mymedia.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
+
+        <activity
+            android:name=".upload_post"
+            android:launchMode="singleTop" />
+        <activity android:name=".mainUI">
+
+        </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".ProfileActivity" />
     </application>
 

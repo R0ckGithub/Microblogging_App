@@ -101,6 +101,18 @@
             android:layout_alignParentLeft="true"
             app:srcCompat="@drawable/back_arrow"
             android:background="@android:color/transparent"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btn_height"
+            android:text="Logout"
+            android:background="@drawable/round_btn"
+            android:textColor="@android:color/black"
+            android:layout_alignParentRight="true"
+            android:id="@+id/logout_btn"
+            android:layout_margin="@dimen/small_margin"
+            />
+
     </RelativeLayout>
 
 
